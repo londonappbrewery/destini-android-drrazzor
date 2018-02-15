@@ -10,23 +10,10 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     // TODO: Steps 4 & 8 - Declare member variables here:
-    TextView mStoryTextView;
-    Button mButtonTop;
-    Button mButtonBottom;
-    int mStoryIndex = 1;
-    int mStory;
-    int mTopAns;
-    int mBottomAns;
-
-    private ChangeStory[] mStoryBank = new ChangeStory[]{
-            new ChangeStory(R.string.T1_Story,R.string.T1_Ans1, R.string.T1_Ans2),
-            new ChangeStory(R.string.T2_Story,R.string.T2_Ans1,R.string.T2_Ans2),
-            new ChangeStory(R.string.T3_Story,R.string.T3_Ans1, R.string.T3_Ans2),
-            new ChangeStory(R.string.T4_End,0,0),
-            new ChangeStory(R.string.T5_End,0,0),
-            new ChangeStory(R.string.T6_End,0,0),
-    };
-
+    private TextView mStoryTextView;
+    private Button mButtonTop;
+    private Button mButtonBottom;
+    private int mStoryIndex = 1;
 
 
     @Override
@@ -48,11 +35,26 @@ public class MainActivity extends AppCompatActivity {
         mButtonTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Destini", "Top button pressed");
-                mStoryIndex = mStoryIndex + 1;
-                updateStory();
-                updateTopButton();
-
+                Log.d("Destini", "Story index  " + mStoryIndex);
+                    if(mStoryIndex == 1) {
+                        Log.d("Destini", "Top button pressed");
+                        mStoryTextView.setText(R.string.T3_Story);
+                        mButtonTop.setText(R.string.T3_Ans1);
+                        mButtonBottom.setText(R.string.T3_Ans2);
+                        mStoryIndex = 3;
+                    }
+                    else if(mStoryIndex == 3){
+                        Log.d("Destini", "Story index  " + mStoryIndex);
+                        mStoryTextView.setText(R.string.T6_End);
+                        mButtonTop.setVisibility(View.GONE);
+                        mButtonBottom.setVisibility(View.GONE);
+                    }
+                    else if(mStoryIndex == 2){
+                        mStoryTextView.setText(R.string.T3_Story);
+                        mButtonTop.setText(R.string.T3_Ans1);
+                        mButtonBottom.setText(R.string.T3_Ans2);
+                        mStoryIndex = 3;
+                    }
             }
         });
 
@@ -61,46 +63,30 @@ public class MainActivity extends AppCompatActivity {
         mButtonBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Destini", "Bottom button pressed");
-                mStoryIndex = mStoryIndex + 1;
-                updateStory();
-                updateBottomButton();
+                Log.d("Destini", "Story index  " + mStoryIndex);
+                if(mStoryIndex == 1) {
+                    Log.d("Destini", "Bottom button pressed");
+                    mStoryTextView.setText(R.string.T2_Story);
+                    mButtonTop.setText(R.string.T2_Ans1);
+                    mButtonBottom.setText(R.string.T2_Ans2);
+                    mStoryIndex = 2;
+                }
+                else if(mStoryIndex == 2){
+                    Log.d("Destini", "Story index  " + mStoryIndex);
+                    mStoryTextView.setText(R.string.T4_End);
+                    mButtonTop.setVisibility(View.GONE);
+                    mButtonBottom.setVisibility(View.GONE);
+                }
+                else if(mStoryIndex == 3){
+                    Log.d("Destini", "Story index  " + mStoryIndex);
+                    mStoryTextView.setText(R.string.T5_End);
+                    mButtonTop.setVisibility(View.GONE);
+                    mButtonBottom.setVisibility(View.GONE);
+                }
             }
         });
 
     }
-
-    private void updateStory() {
-        if (mStoryIndex == 1) {
-            mStory = mStoryBank[mStoryIndex].getStoryId();
-            mStoryTextView.setText(mStory);
-
-        }  else if (mStoryIndex == 2) {
-            mStory = mStoryBank[mStoryIndex].getStoryId();
-            mStoryTextView.setText(mStory);
-
-        } else if (mStoryIndex == 3) {
-            mStory = mStoryBank[mStoryIndex].getStoryId();
-            mStoryTextView.setText(mStory);
-        } else {
-            mStory = mStoryBank[mStoryIndex].getStoryId();
-            mStoryTextView.setText(mStory);
-        }
-
-    }
-    private void updateTopButton(){
-        mTopAns = mStoryBank[mStoryIndex].getTopAnswer();
-        mButtonTop.setText(mTopAns);
-
-    }
-
-    private void updateBottomButton(){
-        mBottomAns = mStoryBank[mStoryIndex].getBottomAnswer();
-        mButtonBottom.setText(mBottomAns);
-
-
-    }
-
 
 
 }
